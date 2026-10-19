@@ -1,0 +1,17 @@
+**/bin/
+**/obj/
+.vs/
+artifacts/
+TestResults/
+settings.json
+*.user
+*.suo
+*.nupkg
+*.snupkg
+*.pfx
+*.p12
+.env
+.env.*
+!.env.example
+*.log
+settings.json.*.tmp

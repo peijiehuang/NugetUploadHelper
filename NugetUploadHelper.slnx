@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/NugetUploadHelper/NugetUploadHelper.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/NugetUploadHelper.Tests/NugetUploadHelper.Tests.csproj" />
+  </Folder>
+</Solution>

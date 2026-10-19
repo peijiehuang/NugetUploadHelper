@@ -1,0 +1,19 @@
+<Project>
+  <PropertyGroup>
+    <Version>0.0.1</Version>
+    <AssemblyVersion>$(Version).0</AssemblyVersion>
+    <FileVersion>$(Version).0</FileVersion>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+    <RepositoryUrl>https://github.com/peijiehuang/NugetUploadHelper</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Authors>peijiehuang</Authors>
+    <Product>NugetUploadHelper</Product>
+    <Description>Windows NuGet 包批量上传与服务器版本比对工具</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+      <_Parameter1>RepositoryUrl</_Parameter1>
+      <_Parameter2>$(RepositoryUrl)</_Parameter2>
+    </AssemblyAttribute>
+  </ItemGroup>
+</Project>

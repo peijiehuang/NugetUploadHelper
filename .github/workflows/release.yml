@@ -1,0 +1,38 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Check version
+        shell: pwsh
+        run: |
+          [xml]$props = Get-Content Directory.Build.props -Raw -Encoding UTF8
+          $version = [string]$props.Project.PropertyGroup.Version
+          if ($env:GITHUB_REF_TYPE -eq 'tag' -and $env:GITHUB_REF_NAME -ne "v$version") {
+            throw "Tag must match Directory.Build.props: v$version"
+          }
+      - name: Test and publish Windows x64
+        shell: pwsh
+        run: ./scripts/publish.ps1
+      - name: Create release
+        if: github.ref_type == 'tag'
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $files = Get-ChildItem -LiteralPath artifacts/release -File | ForEach-Object FullName
+          gh release create $env:GITHUB_REF_NAME @files --title "NugetUploadHelper $env:GITHUB_REF_NAME" --notes-file CHANGELOG.md --verify-tag
+          if ($LASTEXITCODE -ne 0) { throw 'GitHub Release creation failed.' }
